@@ -1,5 +1,5 @@
 //
-//  SplashViewController.swift
+//  TodoViewController.swift
 //  ToDoList
 //
 //  Created by pablo henrique on 06/07/25.
@@ -8,26 +8,15 @@
 import Foundation
 import UIKit
 
-class SplashViewController: UIViewController {
+
+class TodoViewController: UIViewController {
     
-    let contentView = SplashView()
+    let contentView = TodoView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            let TodoViewController = TodoViewController()
-            
-            TodoViewController.modalTransitionStyle = .crossDissolve
-            TodoViewController.modalPresentationStyle = .fullScreen
-            self.present(TodoViewController, animated: true, completion: nil)
-        }
     }
     
     private func setup() {
