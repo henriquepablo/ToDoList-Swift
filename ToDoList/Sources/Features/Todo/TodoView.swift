@@ -85,7 +85,7 @@ class TodoView: UIView {
         return label
     }()
     
-    private let LabelCreatedCount: UILabel = {
+    public let LabelCreatedCount: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -102,7 +102,7 @@ class TodoView: UIView {
         return view
     }()
     
-    private let LabelFinishCount: UILabel = {
+    public let LabelFinishCount: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 14)
@@ -117,6 +117,51 @@ class TodoView: UIView {
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    private let TopBorder: UIView = {
+        let view = UIView()
+        view.backgroundColor = Colors.gray400
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let ContainerEmptyList: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let ClipboardImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "Clipboard")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private let MessageStrong: UILabel = {
+        let label = UILabel()
+        label.text = "Você ainda não tem tarefas cadastradas"
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = Colors.gray300
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let MessageWeak: UILabel = {
+        let label = UILabel()
+        label.text = "Crie tarefas e organize seus itens a fazer"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = Colors.gray300
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     required init?(coder: NSCoder) {
@@ -143,6 +188,11 @@ class TodoView: UIView {
         addSubview(ContainerCountFinish)
         ContainerCountFinish.addSubview(LabelFinishCount)
         addSubview(LabelFinish)
+        addSubview(ContainerEmptyList)
+        ContainerEmptyList.addSubview(TopBorder)
+        ContainerEmptyList.addSubview(ClipboardImage)
+        ContainerEmptyList.addSubview(MessageStrong)
+        ContainerEmptyList.addSubview(MessageWeak)
         setupConstraints()
     }
     
@@ -191,8 +241,28 @@ class TodoView: UIView {
             LabelFinishCount.centerYAnchor.constraint(equalTo: ContainerCountFinish.centerYAnchor),
             
             LabelFinish.topAnchor.constraint(equalTo: InputTodo.bottomAnchor, constant: 33),
-            LabelFinish.trailingAnchor.constraint(equalTo: ContainerCountFinish.leadingAnchor, constant: -8)
+            LabelFinish.trailingAnchor.constraint(equalTo: ContainerCountFinish.leadingAnchor, constant: -8),
             
+            ContainerEmptyList.topAnchor.constraint(equalTo: LabelFinish.bottomAnchor, constant: 20),
+            ContainerEmptyList.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 33),
+            ContainerEmptyList.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -33),
+            ContainerEmptyList.heightAnchor.constraint(equalToConstant: 208),
+            
+            TopBorder.topAnchor.constraint(equalTo: ContainerEmptyList.topAnchor),
+            TopBorder.leadingAnchor.constraint(equalTo: ContainerEmptyList.leadingAnchor),
+            TopBorder.trailingAnchor.constraint(equalTo: ContainerEmptyList.trailingAnchor),
+            TopBorder.heightAnchor.constraint(equalToConstant: 1),
+            
+            ClipboardImage.centerXAnchor.constraint(equalTo: ContainerEmptyList.centerXAnchor),
+            ClipboardImage.centerYAnchor.constraint(equalTo: ContainerEmptyList.centerYAnchor),
+            
+            MessageStrong.topAnchor.constraint(equalTo: ClipboardImage.bottomAnchor, constant: 16),
+            MessageStrong.leadingAnchor.constraint(equalTo: ContainerEmptyList.leadingAnchor, constant: 30),
+            MessageStrong.trailingAnchor.constraint(equalTo: ContainerEmptyList.trailingAnchor, constant: -20),
+            
+            MessageWeak.topAnchor.constraint(equalTo: MessageStrong.bottomAnchor, constant: 1),
+            MessageWeak.leadingAnchor.constraint(equalTo: ContainerEmptyList.leadingAnchor, constant: 35),
+            MessageWeak.trailingAnchor.constraint(equalTo: ContainerEmptyList.trailingAnchor, constant: -20)
         ])
     }
     
