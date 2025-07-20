@@ -24,6 +24,8 @@ class TodoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
+        contentView.tableView.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
+        contentView.AddTodo.addTarget(self, action: #selector(addTask), for: .touchUpInside)
         updateEmptyState()
         setup()
     }
@@ -31,7 +33,6 @@ class TodoViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func setup() {
         self.view.addSubview(contentView)
         self.navigationController?.navigationBar.isHidden = true
-        
         setupConstraints()
     }
     
@@ -77,5 +78,14 @@ class TodoViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
 
         return cell
+    }
+    
+    @objc
+    private func addTask() {
+        guard let text = contentView.InputTodo.text, !text.isEmpty else {
+            return
+        }
+        let newTask = Task(title: text, isDone: false)
+        tasks.append(newTask)
     }
 }

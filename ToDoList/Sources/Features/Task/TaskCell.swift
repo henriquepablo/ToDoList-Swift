@@ -29,10 +29,9 @@ class TaskCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
 
-        // Container visual com borda e cantos
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = UIColor(white: 1.0, alpha: 0.05)
+        container.backgroundColor = Colors.gray500
         container.layer.cornerRadius = 8
         contentView.addSubview(container)
 
@@ -44,25 +43,22 @@ class TaskCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
 
-        // Estilização
         checkbox.tintColor = .systemBlue
         deleteButton.tintColor = .gray
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont.systemFont(ofSize: 16)
 
-        // Ícones
+
         deleteButton.setImage(UIImage(systemName: "trash"), for: .normal)
 
-        // Ações
+
         checkbox.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
         deleteButton.addTarget(self, action: #selector(didTapDelete), for: .touchUpInside)
 
-        // Layout
         NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            container.heightAnchor.constraint(equalToConstant: 64),
+            container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
             checkbox.centerYAnchor.constraint(equalTo: container.centerYAnchor),
             checkbox.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 12),
@@ -98,7 +94,6 @@ class TaskCell: UITableViewCell {
             checkbox.setImage(UIImage(systemName: "circle", withConfiguration: config), for: .normal)
             checkbox.tintColor = .systemBlue
 
-            // Estilo normal
             titleLabel.attributedText = nil
             titleLabel.text = task.title
             titleLabel.textColor = .white

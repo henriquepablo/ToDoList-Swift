@@ -34,7 +34,7 @@ class TodoView: UIView {
         return image
     }()
     
-    private let InputTodo: UITextField = {
+    public let InputTodo: UITextField = {
         let input = UITextField()
         input.attributedPlaceholder = NSAttributedString(
             string: "Adicione uma nova tarefa",
@@ -58,7 +58,7 @@ class TodoView: UIView {
         return input
     }()
         
-    private let AddTodo: UIButton = {
+    public let AddTodo: UIButton = {
         let button = UIButton(type: .system)
         
         button.backgroundColor = Colors.blueDark
@@ -121,6 +121,7 @@ class TodoView: UIView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = Colors.gray600
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -193,6 +194,7 @@ class TodoView: UIView {
         ContainerEmptyList.addSubview(ClipboardImage)
         ContainerEmptyList.addSubview(MessageStrong)
         ContainerEmptyList.addSubview(MessageWeak)
+        addSubview(tableView)
         setupConstraints()
     }
     
@@ -262,7 +264,12 @@ class TodoView: UIView {
             
             MessageWeak.topAnchor.constraint(equalTo: MessageStrong.bottomAnchor, constant: 1),
             MessageWeak.leadingAnchor.constraint(equalTo: ContainerEmptyList.leadingAnchor, constant: 35),
-            MessageWeak.trailingAnchor.constraint(equalTo: ContainerEmptyList.trailingAnchor, constant: -20)
+            MessageWeak.trailingAnchor.constraint(equalTo: ContainerEmptyList.trailingAnchor, constant: -20),
+            
+            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            tableView.topAnchor.constraint(equalTo: TopBorder.bottomAnchor, constant: 20),
+            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
     
